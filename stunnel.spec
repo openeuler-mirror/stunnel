@@ -6,15 +6,7 @@ License:        GPLv2
 URL:            http://www.stunnel.org/
 Source0:        https://www.stunnel.org/downloads/stunnel-%{version}.tar.gz
 Source1:        https://www.stunnel.org/downloads/stunnel-%{version}.tar.gz.asc
-Source2:        Certificate-Creation
-Source3:        sfinger.xinetd
-Source4:        stunnel-sfinger.conf
-Source5:        pop3-redirect.xinetd
-Source6:        stunnel-pop3s-client.conf
-Source7:        stunnel@.service
-Patch0001:      stunnel-5.40-authpriv.patch
-Patch0002:      stunnel-5.40-systemd-service.patch
-Patch0003:      stunnel-5.46-system-ciphers.patch
+Source2:        stunnel@.service
 
 BuildRequires:  openssl-devel pkgconfig util-linux autoconf automake libtool
 BuildRequires:  perl-podlators perl nmap-ncat lsof procps-ng systemd
@@ -47,7 +39,6 @@ change_date=`date +%Y.%m.%d`
 sed -i "s/2018\.07\.02/${change_date}/g" `grep "2018\.07\.02" -lr ./`
 sed -i '/yes).*result: no/,+1{s/result: no/result: yes/;s/as_echo "no"/as_echo "yes"/}' configure
 sed -i '/client = yes/a \\  ciphers = PSK' tests/recipes/014_PSK_secrets
-
 %build
 CFLAGS="$RPM_OPT_FLAGS -fPIC `pkg-config --cflags openssl`"; export CFLAGS
 LDFLAGS="`pkg-config --libs-only-L openssl`"; export LDFLAGS
@@ -62,10 +53,8 @@ for lang in pl ; do
         mv %{buildroot}/%{_mandir}/man8/*.${lang}.8* %{buildroot}/%{_mandir}/${lang}/man8/
         rename ".${lang}" "" %{buildroot}/%{_mandir}/${lang}/man8/*
 done
-install -d srpm-docs
-cp %{SOURCE2} %{SOURCE3} %{SOURCE4} %{SOURCE5} %{SOURCE6} srpm-docs
 install -D %{buildroot}%{_datadir}/doc/stunnel/examples/%{name}.service %{buildroot}%{_unitdir}/%{name}.service
-install -D %{SOURCE7} %{buildroot}%{_unitdir}/%{name}@.service
+install -D %{SOURCE2} %{buildroot}%{_unitdir}/%{name}@.service
 
 %post
 /sbin/ldconfig
@@ -91,7 +80,6 @@ install -D %{SOURCE7} %{buildroot}%{_unitdir}/%{name}@.service
 %files help
 %{_mandir}/man8/stunnel.8*
 %doc tools/stunnel.conf-sample
-%doc srpm-docs/*
 %lang(en) %doc doc/en/*
 %lang(pl) %doc doc/pl/*
 %lang(pl) %{_mandir}/pl/man8/stunnel.8*
