@@ -1,6 +1,6 @@
 Name:           stunnel
 Version:        5.48
-Release:        2
+Release:        3
 Summary:        Secure traffic running between a TCP client and server
 License:        GPLv2
 URL:            http://www.stunnel.org/
@@ -86,5 +86,7 @@ install -D %{SOURCE2} %{buildroot}%{_unitdir}/%{name}@.service
 %exclude %{_datadir}/doc/stunnel
 
 %changelog
+* Mon Nov 25 2019 gulining<gulining1@huawei.com> - 5.48-3
+- delete conf file and patch 
 * Mon Nov 25 2019 gulining<gulining1@huawei.com> - 5.48-2
 - Pakcage init
