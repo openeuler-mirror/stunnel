@@ -86,7 +86,7 @@ install -D %{SOURCE2} %{buildroot}%{_unitdir}/%{name}@.service
 %exclude %{_datadir}/doc/stunnel
 
 %changelog
-* Mon Nov 25 2019 gulining<gulining1@huawei.com> - 5.48-3
+* Sun Jan 19 2020 duyeyu<duyeyu@huawei.com> - 5.48-3
 - delete conf file and patch 
 * Mon Nov 25 2019 gulining<gulining1@huawei.com> - 5.48-2
 - Pakcage init
