@@ -1,10 +1,10 @@
 Name:           stunnel
 Version:        5.48
-Release:        3
+Release:        4
 Summary:        Secure traffic running between a TCP client and server
 License:        GPLv2
 URL:            http://www.stunnel.org/
-Source0:        https://www.stunnel.org/downloads/stunnel-%{version}.tar.gz
+Source0:        https://www.usenix.org.uk/mirrors/stunnel/archive/5.x/stunnel-%{version}.tar.gz
 Source1:        https://www.stunnel.org/downloads/stunnel-%{version}.tar.gz.asc
 Source2:        stunnel@.service
 
@@ -86,7 +86,11 @@ install -D %{SOURCE2} %{buildroot}%{_unitdir}/%{name}@.service
 %exclude %{_datadir}/doc/stunnel
 
 %changelog
+* Thu Sep 10 2020 baizhonggui<baizhonggui@huawei.com> - 5.48-4
+- Modify source0
+
 * Sun Jan 19 2020 duyeyu<duyeyu@huawei.com> - 5.48-3
 - delete conf file and patch 
+
 * Mon Nov 25 2019 gulining<gulining1@huawei.com> - 5.48-2
 - Pakcage init
