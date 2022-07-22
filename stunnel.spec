@@ -1,6 +1,6 @@
 Name:           stunnel
-Version:        5.48
-Release:        4
+Version:        5.64
+Release:        1
 Summary:        Secure traffic running between a TCP client and server
 License:        GPLv2
 URL:            http://www.stunnel.org/
@@ -38,7 +38,7 @@ Files for help with stunnel.
 change_date=`date +%Y.%m.%d`
 sed -i "s/2018\.07\.02/${change_date}/g" `grep "2018\.07\.02" -lr ./`
 sed -i '/yes).*result: no/,+1{s/result: no/result: yes/;s/as_echo "no"/as_echo "yes"/}' configure
-sed -i '/client = yes/a \\  ciphers = PSK' tests/recipes/014_PSK_secrets
+sed -i '/client = yes/a \\    ciphers = PSK' tests/plugins/p06_psk_secrets.py
 %build
 CFLAGS="$RPM_OPT_FLAGS -fPIC `pkg-config --cflags openssl`"; export CFLAGS
 LDFLAGS="`pkg-config --libs-only-L openssl`"; export LDFLAGS
@@ -76,6 +76,7 @@ install -D %{SOURCE2} %{buildroot}%{_unitdir}/%{name}@.service
 %dir %{_sysconfdir}/%{name}
 %exclude %{_sysconfdir}/stunnel/*
 %{_unitdir}/%{name}*.service
+%{_datadir}/bash-completion/completions/stunnel.bash
 
 %files help
 %{_mandir}/man8/stunnel.8*
@@ -86,6 +87,9 @@ install -D %{SOURCE2} %{buildroot}%{_unitdir}/%{name}@.service
 %exclude %{_datadir}/doc/stunnel
 
 %changelog
+* Fri Jul 22 2022 YukariChiba <i@0x7f.cc> - 5.64-1
+- Upgrade version to 5.64
+
 * Thu Sep 10 2020 baizhonggui<baizhonggui@huawei.com> - 5.48-4
 - Modify source0
 
